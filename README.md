@@ -5,7 +5,7 @@
 
  创建工程项目:
 
- ![Alt 创建项目](\image\\1.png)
+ ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master//image/1.png)
 
  在TIFA 框架中已经集成了主界面Activity 
 
