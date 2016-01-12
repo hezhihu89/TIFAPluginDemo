@@ -11,25 +11,25 @@
 
  所以新创建的MainActivity 将会被当初始化引导界面.一般用来做 Splash 启动界面
 
- ![Alt 创建项目](\image\2.png)
+ ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/2.png)
 
  创建完后:
  
  选择查看工程模式为 project
  
- ![Alt 创建项目](\image\3.png)
+ ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/3.png)
 
  项目目录结构基本如下
 
- ![Alt 创建项目](\image\4.png)
+ ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/4.png)
 
  
 ##  导入 SDK
 
  将下载好的 TIFA.jar 包,拷贝到 app/libs 路径下
 
- ![Alt 创建项目](\image\5.png)
- ![Alt 创建项目](\image\6.png)
+ ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/5.png)
+ ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/6.png)
 
  将jar包 添加到项目依赖
 
@@ -37,23 +37,23 @@
 
 ##1.单击右键项目中的 TIFA.jar 选择Add As Library
 
- ![Alt 创建项目](\image\7.png)
+ ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/7.png)
 
 ##2.单击右键项目名 选择 Open Module Setting
 
- ![Alt 创建项目](\image\8.png)
+ ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/8.png)
 
 ##2.1 选择项目所在的 Modules  (默认app) 选择Dependcies 选择 "+" 号 添加依赖--选择 File dependency
 
- ![Alt 创建项目](\image\9.png)
+ ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/9.png)
 
 ##2.2 打开libs 文件夹 选择TIFA.jar --OK  --OK
 
- ![Alt 创建项目](\image\10.png)
+ ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/10.png)
 
  添加TIFA.jar依赖后,等待 studio 自动编译完成
  在项目的类中输入 "TIFA" android studio 智能联想出来了TIFA框架,说明依赖成功,接下开就能使用 TIFA SDK 中的API
- ![Alt 创建项目](\image\11.png)
+ ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/11.png)
 
 
 
@@ -63,13 +63,13 @@
   
   登录TIFA 云平台管理 创建新应用 
 
-  ![Alt 创建项目](\image\12.png)
+  ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/12.png)
 
   创建完成后 在"我的应用" 点击进入创建的应用 获取到APP创建信息 
 
   应用Key 就在这里
 
-  ![Alt 创建项目](\image\13.png)
+  ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/13.png)
 
 
 # 资源打包
@@ -78,28 +78,28 @@
    
    将资源解压之后, TIFA_js_example 目录下资源如下
    
-   ![Alt 创建项目](\image\17.png)
+   ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/17.png)
 
    在本路径下,将资源压缩--->将压缩后的资源直接拖入 TIFA 云平台当前项目的热加固中
 
-   ![Alt 创建项目](\image\18.png)
+   ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/18.png)
    
    下载加固后的资源 - app.hr --->
-     ![Alt 创建项目](\image\19.png)
+     ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/19.png)
 
 ##回到项目
   在项目main文件夹下创建资源目录 "assets"
-  ![Alt 创建项目](\image\20.png) 
+  ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/20.png)
 
 ---------------------------创建 assets--------------------------------
 
-  ![Alt 创建项目](\image\21.png)
+  ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/21.png)
 
   将加固后下载好的app.hr放入assets 目录
 
 ---------------------------添加项目资源--------------------------------
 
-  ![Alt 创建项目](\image\22.png)
+  ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/22.png)
 
 
 
@@ -145,7 +145,7 @@
 
 # <a href="" name="init">初始化</a>
 
-  ![Alt 创建项目](\image\14.png)
+  ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/14.png)
 
 #配置清单文件 添加权限和Activity界面
  
@@ -154,7 +154,7 @@
    为了保证 TIFA　的正常运行，需要在　AndroidManifest.xml　 清单文件中添加权限信息
 # <a href="" name="permission">权限</a>
 
-  ![Alt 创建项目](\image\15.png)　　
+  ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/15.png)　　
 
 ##添加Activity
    在 TIFA 中有2个Activity 作为资源的载体,
@@ -167,11 +167,11 @@
 
    这都需要在清单文件中声明这两个Activity
 
-   ![Alt 创建项目](\image\16.png)　
+   ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/16.png)　
 
 
 ##啊哈 可以编译运行咯 赶快体验TIFA 给你带来不一样的APP体验吧
-![Alt 创建项目](\image\23.png)　
+![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/23.png)　
 
 #相关代码
 
