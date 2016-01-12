@@ -143,7 +143,7 @@
 
   </code>
 
-# <a href="" name="init">初始化</a>
+# <a href="#asInit" name="init">初始化</a>
 
   ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/14.png)
 
