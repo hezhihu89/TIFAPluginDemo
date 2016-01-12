@@ -143,7 +143,7 @@
 
   </code>
 
-# <a href="#asInit" name="init">初始化</a>
+# <a href="#asInit" name="init">初始化 COPY 代码</a>
 
   ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/14.png)
 
@@ -152,7 +152,7 @@
 ##添加权限
    在 TAFA 中的一些操作会涉及到 uses-permission，
    为了保证 TIFA　的正常运行，需要在　AndroidManifest.xml　 清单文件中添加权限信息
-# <a href="#asPermission" name="permission">权限</a>
+# <a href="#asPermission" name="permission">权限 COPY 代码</a>
 
   ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/15.png)　　
 
