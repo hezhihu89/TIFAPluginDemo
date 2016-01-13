@@ -37,7 +37,7 @@
   新建一个类,类名自定义(为了区分插件,我这里定义为 TIFALocationplugin) ,使该类继承自 WebViewJavaScriptPlugin
   ,实现 WebViewJavaScriptPlugin 的 onAttach() 抽象方法;
    
-   ![Alt 插件开发](https://github.com/hezhihu89/TIFAPluginDemo/blob/master/24.png)
+   ![Alt 插件开发](https://github.com/hezhihu89/TIFAPluginDemo/blob/master/image/24.png)
 
    OK 插件的类基本已经创建好了,接下来就是实现定位的功能.
 
@@ -86,7 +86,7 @@
 
 
  使用单例模式,防止对象被多次创建
- ![Alt 插件开发](https://github.com/hezhihu89/TIFAPluginDemo/blob/master/25.png)
+ ![Alt 插件开发](https://github.com/hezhihu89/TIFAPluginDemo/blob/master/image/25.png)
 
 ##开始定位
   因为获取地理位置是一个耗时的操作,所以必须在子线程中进行操作,不然会出现ANR crash问题
@@ -106,20 +106,20 @@
 
 (提示:::在android studio上面这里可能会报错!  添加权限即可---->添加完后依旧是报错的,可忽略)
 
- ![Alt 插件开发](https://github.com/hezhihu89/TIFAPluginDemo/blob/master/26.png)
+ ![Alt 插件开发](https://github.com/hezhihu89/TIFAPluginDemo/blob/master/image/26.png)
 
 #------>>>>>>>>>>>>>添加权限>>>>>>>>>>>>>>>>>>>>>
 
-![Alt 插件开发](https://github.com/hezhihu89/TIFAPluginDemo/blob/master/31.png)
+![Alt 插件开发](https://github.com/hezhihu89/TIFAPluginDemo/blob/master/image/31.png)
 
 
  创建监听对象 LocationListener .
 
- ![Alt 插件开发](https://github.com/hezhihu89/TIFAPluginDemo/blob/master/27.png)
+ ![Alt 插件开发](https://github.com/hezhihu89/TIFAPluginDemo/blob/master/image/27.png)
  
   实现回调方法 获取到了地理位置时,会通过 onLocationChanged(Location location) 中的location对象携带数据返回
   
-![Alt 插件开发](https://github.com/hezhihu89/TIFAPluginDemo/blob/master/28.png)
+![Alt 插件开发](https://github.com/hezhihu89/TIFAPluginDemo/blob/master/image/28.png)
 
 ## 添加回调 返回数据给html页面进行处理
    获取到了地理位置的经纬度之后,就可以同过TIFAWebView 封装的回调方法 tifaWebView.callJavaScriptCallback(), 将经纬度返回给html页面进行处理
@@ -131,7 +131,7 @@
      
       String ...String  : 可以是多个String 作为value值 返回给html调用者
 
-![Alt 插件开发](https://github.com/hezhihu89/TIFAPluginDemo/blob/master/29.png)
+![Alt 插件开发](https://github.com/hezhihu89/TIFAPluginDemo/blob/master/image/29.png)
 
 这样只会 ,当android native获取到了地理位置数据之后,就会同过tifaWebView.callJavaScriptCallback(), 将数据返回给 webView中的 html 页面 通过 js 进行处理.
 
@@ -140,4 +140,4 @@ OK ---->TIFA的 plugun 就这么简单的做好了
 ##流程总结
 
 
-![Alt 插件开发](https://github.com/hezhihu89/TIFAPluginDemo/blob/master/30.png)
+![Alt 插件开发](https://github.com/hezhihu89/TIFAPluginDemo/blob/master/image/30.png)
