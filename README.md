@@ -108,6 +108,11 @@
 
  ![Alt 插件开发](\image\26.png)
 
+#------>>>>>>>>>>>>>添加权限>>>>>>>>>>>>>>>>>>>>>
+
+![Alt 插件开发](\image\31.png)
+
+
  创建监听对象 LocationListener .
 
  ![Alt 插件开发](\image\27.png)
@@ -133,8 +138,6 @@
 OK ---->TIFA的 plugun 就这么简单的做好了
 
 ##流程总结
-
-#创建plugin 类  ------->  继承WebViewJavaScriptPlugin  ------>实现onAttach(TIFAWebView tifaWebView)方法------->暴露方法给外界调用,需要声明为 @JavascriptInterface 方法 才能被 js 调用------->如果有回调 则使用tifaWebView.callJavaScriptCallback(String s,String...string)
 
 
 ![Alt 插件开发](\image\30.png)
