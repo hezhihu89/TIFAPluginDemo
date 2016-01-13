@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import net.siysoft.tifa.app.AbsOnResourceDeployListener;
 import net.siysoft.tifa.app.TIFA;
+import net.siysoft.tifa.tifademo.plugin.TIFALocationPlugin;
+import net.siysoft.tifa.webview.plugin.WebViewJavaScriptPlugin;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -18,7 +20,7 @@ public class SplashActivity extends AppCompatActivity {
 
         //初始化TIFA 框架
         TIFA.init(this, APP_KEY);
-
+        TIFA.registerWebViewJavaScriptPlugin("_TIFALocation", TIFALocationPlugin.class);
         //监听资源部署过程
         TIFA.deployResource(new AbsOnResourceDeployListener() {
             @Override
@@ -27,5 +29,7 @@ public class SplashActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
     }
 }

@@ -1,256 +1,137 @@
-#TIFA Android快速集成 
-   
-##一.准备:
- 下载:<a href="http://tifa.mobi/downloads/TIFA.jar">Android SDK</a>
+# TIFA Plugin 开发与集成
 
- 创建工程项目:
+## GPS 定位插件开发
 
- ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/1.png)
-
- 在TIFA 框架中已经集成了主界面Activity 
-
- 所以新创建的MainActivity 将会被当初始化引导界面.一般用来做 Splash 启动界面
-
- ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/2.png)
-
- 创建完后:
+  在TIFA 框架中自带了一些常用的插件
  
- 选择查看工程模式为 project
- 
- ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/3.png)
-
- 项目目录结构基本如下
-
- ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/4.png)
-
- 
-##  导入 SDK
-
- 将下载好的 TIFA.jar 包,拷贝到 app/libs 路径下
-
- ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/5.png)
- ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/6.png)
-
- 将jar包 添加到项目依赖
-
-#两种方法 :
-
-##1.单击右键项目中的 TIFA.jar 选择Add As Library
-
- ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/7.png)
-
-##2.单击右键项目名 选择 Open Module Setting
-
- ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/8.png)
-
-##2.1 选择项目所在的 Modules  (默认app) 选择Dependcies 选择 "+" 号 添加依赖--选择 File dependency
-
- ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/9.png)
-
-##2.2 打开libs 文件夹 选择TIFA.jar --OK  --OK
-
- ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/10.png)
-
- 添加TIFA.jar依赖后,等待 studio 自动编译完成
- 在项目的类中输入 "TIFA" android studio 智能联想出来了TIFA框架,说明依赖成功,接下开就能使用 TIFA SDK 中的API
- ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/11.png)
-
-
-
-## 注册 TIFA云平台 管理账号 获取  "应用key" :
-
-  注册地址 : <a href="http://cloud.tifa.mobi/sign-up.html">进入注册</a>
+  比如 : AlertDialog对话框弹窗...获取手机信息...获取地理位置  等等....
   
-  登录TIFA 云平台管理 创建新应用 
+  这些在TIFA框架都是从html页面中产生交互事件, WebView 执行js代码,然后对本地方法的调用所实现的.
 
-  ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/12.png)
+  webView 原生就是可以实现的js代码调用本地方法的,只需要将本地方法同过webView.addJavascriptInterface(Object object, String name);
 
-  创建完成后 在"我的应用" 点击进入创建的应用 获取到APP创建信息 
+  但是这样难免会产生一些漏洞,
 
-  应用Key 就在这里
-
-  ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/13.png)
-
-
-# 资源打包
+##webView 通过注册方式,执行本地代码基本流程:
    
-   下载html 测试示例 : <a href="http://tifa.mobi/downloads/TIFA_js_example.zip">资源下载</a>
-   
-   将资源解压之后, TIFA_js_example 目录下资源如下
-   
-   ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/17.png)
-
-   在本路径下,将资源压缩--->将压缩后的资源直接拖入 TIFA 云平台当前项目的热加固中
-
-   ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/18.png)
-   
-   下载加固后的资源 - app.hr --->
-     ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/19.png)
-
-##回到项目
-  在项目main文件夹下创建资源目录 "assets"
-  ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/20.png)
-
----------------------------创建 assets--------------------------------
-
-  ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/21.png)
-
-  将加固后下载好的app.hr放入assets 目录
-
----------------------------添加项目资源--------------------------------
-
-  ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/22.png)
+ 在本地给 WebView 添加本地方法接口,提供接口名供js调用------>在html中触发事件------>事件通过js代码,执行添加接口时提供的接口名,即插件类的类名------>webView执行本地插件中的方法.
 
 
 
- 
-# 二 .开始愉快的 TIFA 之旅: 
+##
+
+  TIFA 框架的设计就对这一些漏洞进行了封堵,然后封装了自己的方法,提升了webView的安全性
+
+  接下来,就动手来设计一款 TIFA 的插件.
+
+##一. 准备
+  在这之前你的应用必须先集成 TIFA 框架,并能正常运行 : <a href="https://github.com/hezhihu89/TIFADemo
+  ">TIFA 集成教程</a>  
   
-##打开 SplashiActivity.java
+  开发之前需要先明白 TIFA　插件的集成规则，即我们的插件类需要继承　WebViewJavaScriptPlugin 这样插件才能正常的被注册到安全的 TIFAWebView 中.
 
-# 1 初始化TIFA 框架
-   在 onCreate(); 方法中 init(); 初始化 TIFA 框架
-  <code>
-
-     TIFA.init(Context context , String appKey);
-     
-     参数说明:
-           context: 上下文;
-           appkey : 在TIFA 平台创建应用后生成的应用Key 用于对资源的校验
-
-  </code>   
-
-#2 监听资源部署
-  <code>
-
-    TIFA.deployResource(OnResourceDeployListener listener);
-
-    参数说明: 
-
-      OnResourceDeployListener() : 资源部署的监听器
-
-      如果需要在资源部署时做出相应的操作 则实现该监听
-    
-      如果在资源部署时不进行任何操作 资源部署完成后 直接进入 APP 主界面
-    
-      就只需要实现 AbsOnResourceDeployListener();
-
-    参数说明:
-
-      AbsOnResourceDeployListener() :
-      
-      对资源部署的监听,listener中只需实现资源部署完毕的方法
-
-  </code>
-
-# <a href="#asInit" name="init">初始化 COPY 代码</a>
-
-  ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/14.png)
-
-#配置清单文件 添加权限和Activity界面
+##二. 开始 
  
-##添加权限
-   在 TAFA 中的一些操作会涉及到 uses-permission，
-   为了保证 TIFA　的正常运行，需要在　AndroidManifest.xml　 清单文件中添加权限信息
-# <a href="#asPermission" name="permission">权限 COPY 代码</a>
+  在项目的包下面新建一个 plugin 文件夹.
+  
+  新建一个类,类名自定义(为了区分插件,我这里定义为 TIFALocationplugin) ,使该类继承自 WebViewJavaScriptPlugin
+  ,实现 WebViewJavaScriptPlugin 的 onAttach() 抽象方法;
+   
+   ![Alt 插件开发](\image\24.png)
 
-  ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/15.png)　　
+   OK 插件的类基本已经创建好了,接下来就是实现定位的功能.
 
-##添加Activity
-   在 TIFA 中有2个Activity 作为资源的载体,
+##三. 插件功能实现
+   插件功能基本就是安卓自己的本地功能 , 实现过程就是 webView通过webView.addJavascriptInterface(Object object, String name); 调用添加插件接口时的name,调用插件类.
 
-   TIFAHoneActivity 
+   TIFA的webView实现过程也是一样,只不过 TIFA 框架对该实现过程进行了封装,变得更加安全.
 
-   和 
+##开始疯狂的代码
+  定位功能 所需的类 :
 
-   TIFAWebViewActivity
+         private LocationManager mLM;
+         private Context mContext;
+         private TIFAWebView webView;
+         private String callBack;
 
-   这都需要在清单文件中声明这两个Activity
+         LocationManager  Location管理器
+        
+         Context :  上下文,用于获取LocationManager 管理器
 
-   ![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/16.png)　
+         webView : TIFAWebView, 传递参数,Native 和 js 通讯
 
+         callBack: 有回调方法的时候,作为key 返回给调用者
+         
 
-##啊哈 可以编译运行咯 赶快体验TIFA 给你带来不一样的APP体验吧
-![Alt 创建项目](https://github.com/hezhihu89/TIFADemo/blob/master/image/23.png)　
+         
+上下文的获取方式在 实现父类方法 onAttach(TIFAWebView tifaWebView),中 tifaWebView 提供了getContext() 方法获取
 
-#相关代码
+首先在onAttach()中 通过tifaWebView 获取上下文:
 
- # init相关代码
-##<a href="#init" name="asInit">回到 init 教程</a>
+        mContext = tifaWebView.getContext();
 
- <code >
+创建getLocation(String string); 方法 申明 @JavascriptInterface 这样才能被webView调用执行.
 
-    import android.support.v7.app.AppCompatActivity;
-	import android.os.Bundle;
-	
-	import net.siysoft.tifa.app.AbsOnResourceDeployListener;
-	import net.siysoft.tifa.app.TIFA;
-	
-	public class SplashActivity extends AppCompatActivity {
+    @JavascriptInterface
+    public void getLocation(String string) {
+        //获取LocationManager 对象
+        if (mLM == null) {
+            mLM = (LocationManager)mContext.getSystemService(Context.LOCATION_SERVICE);
+        }
 
-    //应用key:
-    private final String APP_KEY = "00e6389bdafe76a66d37defbd14df997c672c646154013a843108140c01f88ee8e899c8c2f995a5b2332eeda9d1aa9b69fd2fa9d71877afe1b80b2b1b9982d20fcf6a1e35ee88fa8ad2ac5a45073eb192b23c1c211b0e0d444ebd43f8f97427f93477386fcb5a96afc2bea7b45e388bf045fc73d91ec350a54c0e01fcb5323c3c1";
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
-
-        //初始化TIFA 框架
-        TIFA.init(this, APP_KEY);
-
-        //监听资源部署过程
-        TIFA.deployResource(new AbsOnResourceDeployListener() {
-            @Override
-            public void onResourceDeployComplete() {
-                TIFA.goMainPage(SplashActivity.this);
-                finish();
-            }
-        });
-      }
     }
+     参数说明: 
+          string : 因为获取到的数据需要返回给js,js再处理,所以js在调用这个方法之前会传一个String 参数过来,获取到数据之后同过TIFAWebView.
+  
 
- </code>
 
-# permission 相关代码
-##<a href="#permission" name="asPermission">回到 permission 教程</a>
+ 使用单例模式,防止对象被多次创建
+ ![Alt 插件开发](\image\25.png)
 
-<code>
+##开始定位
+  因为获取地理位置是一个耗时的操作,所以必须在子线程中进行操作,不然会出现ANR crash问题
+  
+  获取地理位置 方法 requestLocationUpdates();
 
-    <?xml version="1.0" encoding="utf-8"?>
-    <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="net.siysoft.tifa.tifademo">
-    <!-- 网络权限 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.READ_SMS" />
-    <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <!-- 接收短信权限 -->
-    <uses-permission android:name="android.permission.SEND_SMS" />
+    mLM.requestLocationUpdates(String provider, long minTime, float minDistance,
+            LocationListener listener);
 
-    <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+     参数说明:
+         provider: 使用什么方式获取位置
+         minTime : 指定数据每次更新的最小时间
+         minDistance: 两次定位之间的最小距离，超过最小距离放回一次数据
+         LocationListtener: 监听器
+  
+在子线程中添加设置监听
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="net.siysoft.tifa.app.TIFAHomeActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="net.siysoft.tifa.app.TIFAWebViewActivity"
-            android:screenOrientation="portrait" />
-      </application>
-    </manifest>
+(提示:::在android studio上面这里可能会报错!  添加权限即可---->添加完后依旧是报错的,可忽略)
 
-</code>
+ ![Alt 插件开发](\image\26.png)
+
+ 创建监听对象 LocationListener .
+
+ ![Alt 插件开发](\image\27.png)
+ 
+  实现回调方法 获取到了地理位置时,会通过 onLocationChanged(Location location) 中的location对象携带数据返回
+  
+![Alt 插件开发](\image\28.png)
+
+## 添加回调 返回数据给html页面进行处理
+   获取到了地理位置的经纬度之后,就可以同过TIFAWebView 封装的回调方法 tifaWebView.callJavaScriptCallback(), 将经纬度返回给html页面进行处理
+
+    tifaWebView.callJavaScriptCallback(String callbackName,String...String);
+    
+    参数说明 :
+      String callbackName : 调用 getLocation(String callbackName) 方法的时候传递过来的 callbackName , 作为key携带数据返回给html
+     
+      String ...String  : 可以是多个String 作为value值 返回给html调用者
+
+![Alt 插件开发](\image\29.png)
+
+这样只会 ,当android native获取到了地理位置数据之后,就会同过tifaWebView.callJavaScriptCallback(), 将数据返回给 webView中的 html 页面 通过 js 进行处理.
+
+OK ---->TIFA的 plugun 就这么简单的做好了
+
+##流程总结
+
+#创建plugin 类  ------->  继承WebViewJavaScriptPlugin  ------>实现onAttach(TIFAWebView tifaWebView)方法------->暴露方法给外界调用,需要声明为 @JavascriptInterface 方法 才能被 js 调用------->如果有回调 则使用tifaWebView.callJavaScriptCallback(String s,String...string)
